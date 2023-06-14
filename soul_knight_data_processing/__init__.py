@@ -2,4 +2,4 @@
 # This is an encrypted data processing library for the Prime Knight, inspired by https://github.com/HTCheater/SKDEditor/
 # 使用soul_knight.core.Convert()进行操作
 # 仓库地址https://github.com/Suto-Commune/soul_knight/
-import soul_knight.core
+import soul_knight_data_processing.core
