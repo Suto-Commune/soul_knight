@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "soul_knight"
+version = "0.0.1"
+authors = [
+  { name="Roren Natsumi", email="RorenNatsumi@outlook.com"},
+]
+description = "A package for encode or decode soul_knight data files."
+readme = "README.md"
+license = { file="LICENSE" }
+dependencies = [
+        "Crypto>=1.4.1"
+    ]
+
+[project.urls]
+"Homepage" = "https://github.com/Suto-Commune/soul_knight/"

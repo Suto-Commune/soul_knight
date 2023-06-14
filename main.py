@@ -1,3 +1,3 @@
 import soul_knight
 
-soul_knight.core.
+USE=soul_knight.core.Convert()
