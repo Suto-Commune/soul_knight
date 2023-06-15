@@ -12,18 +12,21 @@ class File:
         pass
 
     class Const:
-        encryptedJsonGameFiles = ["battles.data", "battle.data"]  # 添加其他文件名到列表中
+        encryptedJsonGameFiles = ["game.data", "item_data.data", "item_data_backups.bytes", "setting.data",
+                                  "statistic.data", "season_data.data", "season_data_backups.bytes",
+                                  "task.data"]  # 添加其他文件名到列表中
 
     # 加密文件
     def encrypt(self, data, file_name):
         result = data.encode('utf-8')
-        if file_name == "battles.data" or file_name == "battle.data" or file_name in self.Const.encryptedJsonGameFiles:
+        if ("battle" in file_name and "data" in file_name) or file_name in self.Const.encryptedJsonGameFiles:
             result = json.dumps(json.loads(data), separators=(',', ':')).encode('utf-8')
-        if "item_data" in file_name or file_name == "task.data" or file_name == "setting.data" or "season_data" in file_name:
+        if "item_data" in file_name or ("task" in file_name and "data" in file_name) or (
+                "setting" in file_name and "data" in file_name) or "season_data" in file_name:
             result = self.encrypt_des(result, bytes([0x69, 0x61, 0x6d, 0x62, 0x6f, 0x0, 0x0, 0x0]))
-        if file_name == "statistic.data":
+        if "statistic" in file_name and "data" in file_name:
             result = self.encrypt_des(result, bytes([0x63, 0x72, 0x73, 0x74, 0x31, 0x0, 0x0, 0x0]))
-        if file_name == "game.data":
+        if "game" in file_name and "data" in file_name:
             result = self.xor(result)
         return result
 
@@ -44,13 +47,14 @@ class File:
                 final_xml += "\n    " + attr
             final_xml += "\n</map>"
             result = final_xml
-        if "item_data" in file_name or file_name == "task.data" or file_name == "setting.data" or "season_data" in file_name:
+        if "item_data" in file_name or ("task" in file_name and "data" in file_name) or (
+                "setting" in file_name and "data" in file_name) or "season_data" in file_name:
             result = self.decrypt_des(data, bytes([0x69, 0x61, 0x6d, 0x62, 0x6f, 0x0, 0x0, 0x0]))
-        if file_name == "statistic.data":
+        if "statistic" in file_name and "data" in file_name:
             result = self.decrypt_des(data, bytes([0x63, 0x72, 0x73, 0x74, 0x31, 0x0, 0x0, 0x0]))
-        if file_name == "game.data":
+        if "game" in file_name and "data" in file_name:
             result = self.xor(data)
-        if file_name == "battles.data" or file_name == "battle.data" or file_name in self.Const.encryptedJsonGameFiles:
+        if ("battle" in file_name and "data" in file_name) or file_name in self.Const.encryptedJsonGameFiles:
             result = json.dumps(json.loads(result), indent=4)
         return result
 
@@ -83,7 +87,8 @@ class File:
 
 class Convert:
     File = File()
-    FileName = ""
+    FileName = str()
+    Id = int()
 
     def de_open(self):
         f = open(self.FileName, "rb")
