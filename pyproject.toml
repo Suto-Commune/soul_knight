@@ -12,7 +12,9 @@ description = "A package for encode or decode soul_knight data files."
 readme = "README.md"
 license = { file="LICENSE" }
 dependencies = [
-        "Crypto>=1.4.1"
+        "pycryptodome",
+        "requests",
+        "wget"
     ]
 
 [project.urls]
