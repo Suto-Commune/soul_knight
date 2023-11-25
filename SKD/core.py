@@ -88,6 +88,8 @@ class File:
 class Convert:
     File = File()
     FileName = str()
+    FileName_decrypt = str()
+    FileName_encrypt = str()
     Id = int()
 
     def de_open(self):
@@ -100,24 +102,29 @@ class Convert:
         f = open(self.FileName, "rb")
         decode_data = self.decode(f.read())
         f.close()
-        f = open(self.FileName + ".decode", "w")
+        f = open(self.FileName + ".json", "w")
         will_write = json.dumps(json.loads(decode_data), ensure_ascii=False, indent=4)
-        f.write(will_write)
+        #加了忽略无法转换的gbk内容.encode("gbk", 'ignore').decode("gbk", "ignore")
+        f.write(will_write.encode("gbk", 'ignore').decode("gbk", "ignore"))
         f.close()
         return will_write
 
     def en_save(self):
-        if not os.path.exists(self.FileName + ".decode"):
+        if not os.path.exists(self.FileName + ".json"):
             print(
                 "Cannot ind the file called " + self.FileName + ".Check if the file exists or use de_save() to create "
                                                                 "it.")
             return "File Not Found."
-        f = open(self.FileName + ".decode", "r")
+        f = open(self.FileName + ".json", "r")
         encode_data = json.dumps(json.loads(f.read()), ensure_ascii=False, separators=(',', ':'))
 
         encode_data = self.encode(encode_data)
         f.close()
-        f = open(self.FileName + ".decode.encode", "w")
+        #判断是否创建文件夹
+        if not os.path.exists('./com.ChillyRoom.DungeonShooter/files/encrypt') : os.mkdir('./com.ChillyRoom.DungeonShooter/files/encrypt')
+        f = open(self.FileName_encrypt, "w")
+        #game单独的读写
+        if "game" in self.FileName and "data" in self.FileName: f = open(self.FileName_encrypt, "wb")
         will_write = encode_data
         f.write(will_write)
         f.close()
