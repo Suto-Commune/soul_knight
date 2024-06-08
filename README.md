@@ -1,6 +1,7 @@
 [![Pypi](https://img.shields.io/pypi/v/soul-knight-data-processing)](https://pypi.org/project/soul-knight-data-processing/)
 [![Upload Python Package](https://github.com/Suto-Commune/soul_knight/actions/workflows/python-publish.yml/badge.svg)](https://github.com/Suto-Commune/soul_knight/actions/workflows/python-publish.yml)
 
+The method comes from https://github.com/HTCheater/SKDEditor
 
 使用方法看`example.py`  或者 `example.py`，或者自己翻源码
 
