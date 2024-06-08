@@ -16,7 +16,11 @@ USE = SKD.core.Convert()
 
 #存档文件目录
 directory = './com.ChillyRoom.DungeonShooter/files/'
-
+try:
+    os.mkdir("jiemi")
+except:
+    ...
+config=SKD.core.Config(encrypt_path="./jiemi")
 pattern = ['*.data', "*.bytes"]
 
 abc = int(input("0解密 1加密："))
