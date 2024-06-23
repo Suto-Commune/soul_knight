@@ -103,7 +103,8 @@ class Convert:
         f = open(self.FilePath, "rb")
         decode_data = self.decode(f.read())
         f.close()
-        f = open(self.FilePath + ".json", "w")
+        f = open(self.FilePath + ".json", "w",encoding="utf-8")
+        decode_data = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', decode_data)
         will_write = json.dumps(json.loads(decode_data), ensure_ascii=False, indent=4)
         # 加了忽略无法转换的gbk内容.encode("gbk", 'ignore').decode("gbk", "ignore")
         f.write(will_write.encode("gbk", 'ignore').decode("gbk", "ignore"))
@@ -116,7 +117,7 @@ class Convert:
                 "Cannot ind the file called " + self.FilePath + ".Check if the file exists or use de_save() to create "
                                                                 "it.")
             return "File Not Found."
-        f = open(self.FilePath + ".json", "r")
+        f = open(self.FilePath + ".json", "r",encoding="utf-8")
         encode_data = json.dumps(json.loads(f.read()), ensure_ascii=False, separators=(',', ':'))
 
         encode_data = self.encode(encode_data)
@@ -124,7 +125,7 @@ class Convert:
         # 判断是否创建文件夹
         if not os.path.exists(self.ChillyRoom+'/encrypt/'):
             os.makedirs(self.ChillyRoom+'/encrypt/')
-        f = open(self.ChillyRoom+'/encrypt/'+self.FileName_encrypt, "w")
+        f = open(self.ChillyRoom+'/encrypt/'+self.FileName_encrypt, "w",encoding='utf-8')
         # game单独的读写
         if "game" in self.FilePath and "data" in self.FilePath:
             f = open(self.ChillyRoom+'/encrypt/'+self.FileName_encrypt, "wb")
