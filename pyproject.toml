@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 packages = ["SKD"]
 [project]
 name = "soul_knight_data_processing"
-version = "0.0.8"
+version = "0.0.9"
 authors = [
   { name="Roren Natsumi", email="RorenNatsumi@outlook.com"},
 ]
