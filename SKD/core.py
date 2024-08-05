@@ -103,6 +103,8 @@ class Convert:
         f = open(self.FilePath, "rb")
         decode_data = self.decode(f.read())
         f.close()
+        if isinstance(decode_data, bytes):
+            decode_data = decode_data.decode('utf-8', errors='ignore')
         f = open(self.FilePath + ".json", "w",encoding="utf-8")
         decode_data = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', decode_data)
         will_write = json.dumps(json.loads(decode_data), ensure_ascii=False, indent=4)
